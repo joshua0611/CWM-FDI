@@ -14,7 +14,6 @@ import httplib2
 from urllib.parse import urljoin
 
 URL = "http://127.0.0.1:5000/login"
-
 def main():
     data=get_data()
     for action in data.keys():
