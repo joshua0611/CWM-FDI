@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quote outcome
+{% endblock %}
+
+{% block main %}
+    <h3>Company name: {{ cname }}</h3>
+    <h3>Company stock price: {{ cprice | usd }}</h3>
+    <h3>Company symbol: {{ csymbol }}</h3>
+    <form action="/quote" method="GET">
+        <button class="btn btn-primary" type="submit">Return to quote</button>
+    </form>
+{% endblock %}

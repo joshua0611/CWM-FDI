@@ -1,0 +1,27 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Sell
+{% endblock %}
+
+{% block main %}
+    <form action="/sell" method="post">
+
+        <div class="mb-3">
+            <label for="symbol">Choose a share:</label>
+            <select name="symbol" id="symbol">
+                    <option value="Select a share">Select a share</option>
+                {% for share in share_options %}
+                    <option value="{{ share['symbol'] }}">{{ share["symbol"] }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="mb-3">
+            <input class="form-control mx-auto w-auto" id="shares" name="shares" placeholder="Number of shares" type="text">
+        </div>
+
+        <button class="btn btn-primary" type="submit">Sell</button>
+
+    </form>
+{% endblock %}
