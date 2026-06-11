@@ -3,7 +3,7 @@ SQL injection attack pentester.
 
 Searches for input fields in the form of a site, posts singular inverted commas into the forms. Tries to do so for all input fields in case of checks on incomplete forms. Seeks out only forms with post actions.
 
-Looks for error codes over 500 and reports them, with relevant input delivered.
+Looks for error codes over 500 and reports them, with relevant inputs and outputs delivered so vulnerable forms can be pinpointed.
 """
 
 import string
@@ -11,18 +11,17 @@ import time
 import requests
 from bs4 import BeautifulSoup
 import httplib2
+from urllib.parse import urljoin
 
-URL      = "http://127.0.0.1:5000/login"
-USERNAME = "admin"
-SAMPLES  = 5         # measurements per candidate — increase if signal is noisy
-CHARSET  = string.ascii_lowercase + string.digits
+URL = "http://127.0.0.1:5000/login"
 
 def main():
     data=get_data()
     for action in data.keys():
         print(f"Testing action: {action}")
         payload=generate_payload(data[action])
-        results=test_payload(URL, payload)
+        action_url=urljoin(URL, action)
+        results=test_payload(action_url, payload)
         if results[0]:
             print(f"    VULNERABLE: striking form {action} caused error code {results[1]}")
         else:
@@ -39,7 +38,7 @@ def get_data():
     for form in forms:
         method=form.get('method')
         action=form.get('action')
-        if method == 'POST':
+        if method.upper() == 'POST':
             data[action]=[field.get('name') for field in form.select('input')]
     return data
 
@@ -54,9 +53,8 @@ def generate_payload(fields):
 def test_payload(URL, payload):
     """
     Fires payload and checks for vulnerability.
- 
-    Takes as input a URL, and a payload (a dict containing {form_name:SQL_payload})
 
+    Takes as input a URL, and a payload (a dict containing {form_name:SQL_payload})
     Returns [vuln_flag, response_code], the former being a bool denoting vulnerability
     """
     resp=requests.post(URL, data=payload).status_code
