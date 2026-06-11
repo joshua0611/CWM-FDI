@@ -2,6 +2,7 @@ import os
 import requests
 import urllib.parse
 
+import yfinance as yf
 from flask import redirect, render_template, request, session
 from functools import wraps
 
@@ -38,23 +39,20 @@ def login_required(f):
 def lookup(symbol):
     """Look up quote for symbol."""
 
-    # Contact API
     try:
-        api_key = os.environ.get("API_KEY")
-        url = f"https://cloud.iexapis.com/stable/stock/{urllib.parse.quote_plus(symbol)}/quote?token={api_key}"
-        response = requests.get(url)
-        response.raise_for_status()
+        print("sorting out data")
+        ticker=yf.Ticker(symbol)
+        info=ticker.info
     except requests.RequestException:
         return None
 
     # Parse response
     try:
-        quote = response.json()
+        print("putting data into dict")
         return {
-            "name": quote["companyName"],
-            "price": float(quote["latestPrice"]),
-            "symbol": quote["symbol"]
-        }
+            "name": info.get('longName'),
+            "price": float(info.get('currentPrice')),
+            "symbol": symbol }
     except (KeyError, TypeError, ValueError):
         return None
 

