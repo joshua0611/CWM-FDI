@@ -1,0 +1,16 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Apology
+{% endblock %}
+
+{% block main %}
+    <img
+        alt="{{ top }}"
+        class="border img-fluid"
+        src="https://api.memegen.link/images/ugandanknuck/{{ top | urlencode }}/{{ bottom | urlencode }}.png?width=400"
+        title="{{ top }}"
+    >
+{% endblock %}
+
+
