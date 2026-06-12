@@ -1,9 +1,9 @@
 {'/addNewWorker': 
     {
-    'name':'test3',
-    'mobile':99112233,
-    'city': 'Roma Eternia',
-    'email': "caligula1122@gmail.com",
+    'name':'test4',
+    'mobile':99112234,
+    'city': 'glasscity',
+    'email': "someemail@gmail.com",
     'password':'weakpassword'
     }
 }

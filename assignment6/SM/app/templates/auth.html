@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Loopify - {% if is_login %}Login{% else %}User Registration{% endif %}</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/auth.css">
+</head>
+<body>
+    <div class="registration-container">
+        <div class="logo-container">
+            <img src="/static/images/loop.png" alt="Loopify Logo">
+            <h1>{% if is_login %}Login to Loopify{% else %}Register in Loopify{% endif %}</h1>
+            <p class="tagline">
+                Giving Products a Second Life, Sustainably.!
+                <img src="/static/images/leaves.png" alt="Leaves Icon" class="tagline-icon">
+            </p>
+        </div>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">
+                        <p>{{ message }}</p>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- Form (Login or Register based on is_login flag) -->
+        <form action="{% if is_login %}/auth/login{% else %}/auth/register{% endif %}" method="post">
+            <input type="hidden" name="csrf_token" value="{{ csrf_token }}">
+            {% if request.args.get('next') %}
+                <input type="hidden" name="next" value="{{ request.args.get('next') }}">
+            {% endif %}
+    
+            <input type="text" name="username" placeholder="Username" required>
+            <input type="password" name="password" placeholder="Password" required>
+            
+            {% if is_login %}
+                <button type="submit">Login</button>
+                <p style = "padding-top: 10px">Don't have an account? <a href="{{ url_for('auth.register') }}">Register here</a></p>
+            {% else %}
+                <button type="submit">Sign Up</button>
+                <p style = "padding-top: 10px">Already have an account? <a href="{{ url_for('auth.login') }}">Login here</a></p>
+            {% endif %}
+        </form>
+    </div>
+</body>
+</html>

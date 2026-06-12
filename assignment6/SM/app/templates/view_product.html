@@ -1,0 +1,84 @@
+{% extends 'base.html' %}
+
+{% from "macros.html" import product_card %}
+
+{% block content %}
+<div class="container mt-5 d-flex justify-content-center align-items-center">
+    <table class="table table-borderless" style="padding: 3%; width: 100%; table-layout: fixed; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); border-radius: 10px;">
+        <tr>
+            <td class="align-top" style="width: 50%; max-width: 500px;">
+                <img src="{{ product.image_url }}" alt="{{ product.title }}" class="img-fluid rounded shadow-sm" style="width: 100%; height: auto; object-fit: cover; border-radius: 10px; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);">
+            </td>
+            <td class="align-top" style="width: 50%; padding-left: 50px; padding-top: 20px;">
+                <p class="badge badge-info" style="margin:0; font-size: 1rem; padding: 0.5rem 1rem; background-color: #17a2b8; color: white; border-radius: 5px; font-weight: bold; display: inline-block; width: auto;">{{ product.category.name }}</p>
+                <hr style="border: none; height: 2px; background: linear-gradient(to right, #ddd, rgba(221, 221, 221, 0)); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 10px 0;">
+                
+                <h5 class="font-weight-bold" style="font-family: 'Playfair Display', sans-serif; font-size: 2.5rem; color: #003300; text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.3); letter-spacing: 0.5px; text-transform: capitalize; margin-bottom: 20px; word-wrap: break-word; line-height: 1.4;">{{ product.title }}</h5>
+                
+                <p class="text-muted" style="font-size: 1.1rem; line-height: 1.6; margin-bottom: 1.5rem; color: #34495e; word-wrap: break-word;">{{ product.description }}</p>
+
+                <div class="d-flex align-items-center mb-3">
+                    <p class="h4 text-success mb-0" style="font-weight: bold; margin-right: 15px; font-size: 1.5rem; ">Price: €{{ product.price }}</p>
+                        {% if user.id == product.seller_id %}
+                            <form method="get" action="{{ url_for('product.update_product', product_id=product.id) }}" class="ml-3" style = "margin-right: 10px;">
+                                <button type="submit" class="btn btn-primary" style="padding: 0.6rem 1.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 5px; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); color: white; transition: all 0.3s ease-in-out; cursor: pointer;"
+                                    onmouseover=" this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';"
+                                    onmouseout="this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';">
+                                    Edit
+                                </button>
+                            </form>
+                            <form method="get" action="{{ url_for('product.delete_product', product_id=product.id) }}" class="ml-3" onsubmit="return confirm('Are you sure you want to delete this product?');">
+                                <button type="submit" class="btn btn-danger" style="padding: 0.6rem 1.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 5px; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); color: white; transition: all 0.3s ease-in-out; cursor: pointer;"
+                                    onmouseover=" this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';"
+                                    onmouseout="this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';">
+                                    Delete
+                                </button>
+                            </form>
+                        {% else  %}
+                            {% if added_to_cart %}
+                            <form method="get" action="{{ url_for('cart.remove_from_cart', product_id=product.id) }}" class="ml-3">
+                                <button type="submit" class="btn btn-danger" style="padding: 0.6rem 1.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 5px; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); color: white; transition: all 0.3s ease-in-out; cursor: pointer;"
+                                    onmouseover=" this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';"
+                                    onmouseout="this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';">
+                                    Remove from Cart
+                                </button>
+                            </form>
+                            {% else %}
+                            <form method="get" action="{{ url_for('cart.add_to_cart', product_id=product.id) }}" class="ml-3">
+                                <button type="submit" class="btn btn-success" style="padding: 0.6rem 1.8rem; font-size: 1.1rem; font-weight: bold; border-radius: 5px; background-color: #28a745; border: none; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); color: white; transition: all 0.3s ease-in-out; cursor: pointer;"
+                                    onmouseover=" this.style.boxShadow='0 6px 12px rgba(0, 0, 0, 0.3)';"
+                                    onmouseout="this.style.boxShadow='0 4px 8px rgba(0, 0, 0, 0.2)';">
+                                    Add to Cart
+                                </button>
+                            </form>
+                            {% endif %}
+                        {% endif %}                                 
+                </div>
+            </td>
+        </tr>
+    </table>
+</div>
+
+{% if recommended_products %}
+    <div class="container mt-5">
+        <h4 class="text-center mb-4" style="font-size: 2.5rem; font-weight: 500; color: #003300; letter-spacing: 1px; font-family: 'Lato', sans-serif; text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.1);">
+            <span style="color:rgb(24, 83, 92);">Our recommendations for you</span>
+        </h4>
+        <hr style="border: none; height: 2px; background: linear-gradient(to right, rgba(221, 221, 221, 0), #ddd, #rgba(221, 221, 221, 0)); box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin: 10px 0;">
+
+    
+        <div class="row" style = "margin-top: 50px;">
+            <div class="col-md-12">
+                <div class="row">
+                    {% for product in recommended_products %}
+                        <div class="col-md-3 mb-4">
+                            {{ product_card(product) }}
+                        </div>                
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% endblock %}

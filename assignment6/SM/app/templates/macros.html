@@ -1,0 +1,13 @@
+{% macro product_card(product) %}
+<a href="{{ url_for('product.view_product', product_id=product.id) }}" style="text-decoration: none;">
+    <div class="card shadow-sm border-0" style="height: 100%; border-radius: 10px;">
+        <img src="{{ product.image_url }}" class="card-img-top img-fluid" alt="{{ product.title }}" style="border-top-left-radius: 10px; border-top-right-radius: 10px;">
+        <div class="card-body text-center" style="padding: 15px;">
+            <h5 class="card-title" style="font-size: 1.1rem; font-weight: bold;">{{ product.title }}</h5>
+            <p class="card-text text-muted" style="font-size: 0.9rem; color: #6c757d; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ product.description|truncate(100) }}</p>
+            <p class="card-text text-success font-weight-bold" style="font-size: 1.1rem;">€{{ product.price }}</p>
+            <a href="{{ url_for('product.view_product', product_id=product.id) }}" class="btn btn-primary btn-sm" style="font-size: 0.85rem;">View Details</a>
+        </div>
+    </div>
+</a>
+{% endmacro %}

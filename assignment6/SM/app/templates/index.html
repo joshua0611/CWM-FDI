@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% from "macros.html" import product_card %} 
+
+{% block content %}
+<div class="container mt-5" style="padding:-bottom: 15px;">
+    <div class="jumbotron text-center d-flex align-items-center justify-content-center"
+         style="background-image: url('/static/images/home_background.webp'); background-size: cover; background-position: center; border-radius: 10px; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2); position: relative; overflow: hidden; transform: scale(0.95); transition: transform 0.3s ease-in-out; color: #ffffff; height: 500px; width: 100%;">
+        <div style="position: relative; text-align: center;">
+            <h1 class="display-4 font-weight-bold" style="padding-top: 20px; text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.6); letter-spacing: 2px; color: #ffdd59;">Welcome to Loopify</h1>
+            <p class="lead" style="font-style: italic; text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); font-size: 1.25rem; color: #f8f9fa;">Your trusted marketplace for buying and selling pre-loved products sustainably.</p>
+            <div class="mt-3">
+                <form class="form-inline d-flex justify-content-center" method="get" action="{{ url_for('product.search_results') }}">
+                    <input class="form-control shadow-sm" type="search" name="q" placeholder="Search for products..." aria-label="Search"
+                           style="border-radius: 20px; width: 320px; font-size: 1rem; padding: 10px 15px; 
+                                  border: 1px solid #ccc; transition: all 0.3s ease-in-out; 
+                                  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); margin-right: 12px;">
+                    <button class="btn btn-light shadow-sm" type="submit" 
+                            style="border-radius: 20px; font-weight: 500; font-size: 1rem; padding: 10px 20px; 
+                                   border: none; background: linear-gradient(45deg, #5cb85c, #4cae4c); 
+                                   color: white; transition: all 0.3s ease-in-out; cursor: pointer;">
+                        Search
+                    </button>
+                </form>
+            </div>
+            
+            
+        </div>
+    </div>
+
+    <div class="row" style="padding-left: 30px; padding-right: 30px; padding-bottom: 30px;">
+        <div class="col-md-12">
+            <div class="row">
+                {% for product in products %}
+                    <div class="col-md-3 mb-4">
+                        {{ product_card(product) }}
+                    </div>                
+                {% endfor %}
+            </div>
+            <div class="text-center mt-4">
+                <a href="{{ url_for('product.search_results') }}" class="btn btn-outline-success btn-lg" style="border-radius: 25px; font-weight: bold; padding: 10px 30px;">View All Products</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

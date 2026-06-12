@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1 style="text-align: center; font-size: 24px; color: #333;">
+    {% if product %}
+        Update Product
+    {% else %}
+        Sell New Product
+    {% endif %}
+</h1>
+
+<center style="display: flex; justify-content: center; align-items: center; min-height: 80vh;">
+    <form method="POST" enctype="multipart/form-data" style="max-width: 600px; width: 100%; padding: 20px; border: 1px solid #ddd; border-radius: 8px; background-color: #ffffff; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);">
+        <div style="margin-bottom: 20px;">
+            <label for="title" style="display: block; font-weight: bold; margin-bottom: 8px; color: #555;">Title <span style="color: red;">*</span></label>
+            <input type="text" id="title" name="title" value="{{ product.title if product else '' }}" required style="width: calc(100% - 24px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="price" style="display: block; font-weight: bold; margin-bottom: 8px; color: #555;">Price <span style="color: red;">*</span></label>
+            <input type="number" id="price" name="price" value="{{ product.price if product else '' }}" step="0.01" required style="width: calc(100% - 24px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="description" style="display: block; font-weight: bold; margin-bottom: 8px; color: #555;">Description</label>
+            <textarea id="description" name="description" style="width: calc(100% - 24px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; min-height: 120px; box-sizing: border-box;">{{ product.description if product else '' }}</textarea>
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="image" style="display: block; font-weight: bold; margin-bottom: 8px; color: #555;">Image (optional)</label>
+            <input type="file" id="image" name="image" accept=".png, .webp, .jpg, .jpeg" style="width: calc(100% - 24px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
+        </div>
+        <div style="margin-bottom: 20px;">
+            <label for="category" style="display: block; font-weight: bold; margin-bottom: 8px; color: #555;">Category <span style="color: red;">*</span></label>
+            <select id="category" name="category" required style="width: calc(100% - 24px); padding: 10px; border: 1px solid #ccc; border-radius: 4px; font-size: 14px; box-sizing: border-box;">
+                <option value="" disabled selected>Select a category</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id == product.category_id %}selected{% endif %}>{{ category.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" style="width: calc(100% - 24px); padding: 10px; background-color: #007bff; color: white; border: none; border-radius: 4px; font-size: 14px; font-weight: bold; cursor: pointer; text-align: center; box-sizing: border-box;">
+            {% if product %}
+                Update Product
+            {% else %}
+                Add Product
+            {% endif %}
+        </button>
+    </form>
+</center>
+{% endblock %}

@@ -1,0 +1,265 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    padding-bottom: 5px;
+    padding-top: 5px;           
+    background-color: #ffffff;
+    color: #474747;
+    border-bottom-style: solid;
+    border-bottom-width: thin;
+    border-bottom-color: #f9f9f9;
+}
+
+.logo {
+    height: 50px;
+}
+.auth-section {
+    display: flex;
+    align-items: center;
+}
+.login-button {
+    background-color: #27bb30;
+    color: #f9f9f9;
+    padding: 10px 20px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+.login-button:hover {
+    background-color: #1e8f24;
+    color: #ffffff;
+}
+
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #354930;
+    color: white;
+}
+
+.floating-cart {
+    position: fixed;
+    bottom: 30px;
+    right: 30px;
+    background-color: #ff6600;
+    padding: 15px;
+    border-radius: 50%;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    cursor: pointer;
+    color: white;
+    font-size: 1.8rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 60px;
+    text-decoration: none;
+}
+
+.floating-cart:hover {
+    transform: scale(1.1);
+}
+
+.cart-badge {
+    position: absolute;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    background-color: #27bb30;
+    color: white;
+    font-size: 0.9rem;
+    font-weight: bold;
+    padding: 5px 8px;
+    border-radius: 50%;
+    min-width: 24px;
+    min-height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.no-products-message {
+    color: #6c757d; 
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6; 
+    border-radius: 8px; 
+    margin-top: 20px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1); 
+    transition: background-color 0.3s ease;
+}
+
+.no-products-message a {
+    color: #007bff; 
+    text-decoration: none;
+    font-weight: 600;
+    transition: color 0.2s ease;
+}
+
+.no-products-message a:hover {
+    color: #0056b3; 
+    text-decoration: underline;
+}
+
+.dropdown-item {
+    display: block;
+    padding: 12px 16px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.2s ease;
+    border-bottom: 1px solid #f1f1f1;
+}
+
+.dropdown-item:last-child {
+    border-bottom: none;
+}
+
+.dropdown-item:hover {
+    background-color: #f8f8f8;
+    color: #27bb30;
+}
+
+.dropdown-item li {
+    list-style: none;
+}
+
+#dropdownMenu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    width: 220px;
+    padding: 0;
+    list-style-type: none;
+    overflow: hidden;
+}
+
+#profile-name {
+    margin-left: 8px;
+    color: #27bb30;
+    font-weight: 600;
+    font-size: 1.1rem;
+    cursor: pointer;
+    display: inline-block;
+    transition: color 0.2s 
+}
+
+.card {
+    position: relative;
+    border-radius: 10px;
+    overflow: hidden;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    cursor: pointer;
+}
+
+/* Style for the card image */
+.card-img-top {
+    width: 100%;
+    height: 200px; 
+    object-fit: cover;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+
+/* Style for the card body */
+.card-body {
+    padding: 15px;
+}
+
+/* Title of the product */
+.card-title {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 10px;
+}
+
+/* Description (with truncation if needed) */
+.card-text.text-muted {
+    font-size: 0.9rem;
+    color: #6c757d;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+/* Price text style */
+.card-text.text-success {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #28a745; /* Green color for price */
+    margin-bottom: 15px;
+}
+
+/* Button style */
+.card .btn {
+    font-size: 0.85rem;
+    padding: 8px 15px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    transition: background-color 0.3s ease;
+    border-radius: 5px;
+}
+
+/* Hover effect for the button */
+.card .btn:hover {
+    background-color: #0056b3;
+}
+
+/* Link inside card (removes default underline) */
+.card a {
+    text-decoration: none;
+}
+
+/* Adjust the card layout */
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+}
+
+/* Add margin between button and card content */
+.card .btn {
+    margin-top: auto;
+}
+
+/* Optional: Add a subtle shadow when the card is hovered */
+.card:hover {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.fa-solid {
+    padding: 5px;
+}

@@ -1,0 +1,165 @@
+/* General Container Styling */
+.cart-container, .product-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+/* Page Title Styling */
+.page-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+/* Generic Table Styling */
+.generic-table {
+    width: 100%;
+    max-width: 1000px; /* Increase table width */
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    border: 1px solid #ddd;
+}
+
+.generic-table th, .generic-table td {
+    padding: 15px; /* Increase padding for more space */
+    text-align: center;
+    font-size: 1.2rem; /* Increase font size for better visibility */
+}
+
+.generic-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+}
+
+.generic-table td {
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    vertical-align: middle !important;
+}
+
+/* Image Styling */
+.generic-image {
+    width: 70px; /* Increase image size */
+    height: 70px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+/* Price Styling */
+.generic-price {
+    font-size: 1.3rem; /* Make price text bigger */
+    font-weight: bold;
+    color: #28a745;
+}
+
+/* Action Buttons */
+.generic-table .btn-warning, .generic-table .btn-danger {
+    font-size: 1rem; /* Increase font size of buttons */
+    padding: 8px 15px; /* Add padding for bigger buttons */
+    border-radius: 5px;
+    margin: 0 8px;
+}
+
+.generic-table .btn-warning {
+    background-color: #ffc107;
+    color: white;
+}
+
+.generic-table .btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+/* Action Button Hover Effects */
+.generic-table .btn-warning:hover {
+    background-color: #e0a800;
+}
+
+.generic-table .btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Total Price Styling */
+.total-price-container {
+    font-size: 1.5rem; /* Increase total price font size */
+    font-weight: bold;
+    color: #333;
+    margin-top: 20px;
+}
+
+/* Cart Action Buttons (Continue Shopping & Checkout) */
+.cart-actions {
+    margin-top: 20px;
+}
+
+.cart-actions .cart-btn {
+    padding: 12px 25px; /* Increase padding for buttons */
+    font-size: 1.1rem; /* Slightly larger font size */
+    margin: 5px;
+    border-radius: 5px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cart-actions .btn-outline-primary {
+    background-color: #fff;
+    border: 1px solid #007bff;
+    color: #007bff;
+}
+
+.cart-actions .btn-outline-primary:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.cart-actions .btn-success {
+    background-color: #28a745;
+    color: white;
+    border: 1px solid #28a745;
+}
+
+.cart-actions .btn-success:hover {
+    background-color: #218838;
+    color: white;
+}
+
+/* Empty Cart Message */
+.no-products-message {
+    font-size: 1.2rem; /* Slightly larger font */
+    color: #6c757d;
+    text-align: center;
+}
+
+.no-products-message a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.no-products-message a:hover {
+    text-decoration: underline;
+}
+
+/* Login Message */
+.login-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.login-link:hover {
+    text-decoration: underline;
+}
+
+/* Make items clickable */
+.generic-item-link {
+    color: #007bff;
+    text-decoration: none;
+}
+
+.generic-item-link:hover {
+    text-decoration: underline;
+}
