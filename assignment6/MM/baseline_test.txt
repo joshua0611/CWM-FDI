@@ -1,0 +1,9 @@
+{'\addNewClient': 
+    {
+    'name':'test',
+    'tel':99112233,
+    'city':'Paradise',
+    'email':'romulus9911@gmail.com',
+    'password':'weakpassword'
+    }
+}
