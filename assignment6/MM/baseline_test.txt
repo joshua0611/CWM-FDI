@@ -1,9 +1,9 @@
-{'\addNewClient': 
+{'/addNewWorker': 
     {
-    'name':'test',
-    'tel':99112233,
-    'city':'Paradise',
-    'email':'romulus9911@gmail.com',
+    'name':'test3',
+    'mobile':99112233,
+    'city': 'Roma Eternia',
+    'email': "caligula1122@gmail.com",
     'password':'weakpassword'
     }
 }

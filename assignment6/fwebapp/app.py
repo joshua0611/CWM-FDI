@@ -29,8 +29,7 @@ Session(app)
 db = SQL("sqlite:///finance.db")
 
 # Keys to induce vulnerability to sql injection attacks
-vuln=0
-safe=0
+vuln=0 # 1 for vulnerable, 0 for safe
 
 @app.after_request
 def after_request(response):

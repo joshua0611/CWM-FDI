@@ -1,7 +1,6 @@
-{'/register': 
+{'/login': 
     {
     'username':'test3',
-    'password':'weakpassword',
-    'confirmation':'weakpassword'
+    'password':'weakpassword'
     }
 }

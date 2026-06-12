@@ -15,7 +15,7 @@ from urllib.parse import urljoin
 from pathlib import Path
 
 # Initialising key variables
-URL = "http://127.0.0.1:5000/register"
+URL = "http://127.0.0.1:5000/login"
 baseline_test=True #Flag for whether to conduct baseline test
 
 # Loading warheads
@@ -72,7 +72,7 @@ def get_data():
 
 def generate_payloads(fields, warheads):
     """
-    Takes as input a list of fields of a given form, and generates a dict of data payloads (dicts)     containing SQL injection pentest loads of form payloads[warhead]={"name":[{warheads}], etc.} to be posted 
+    Takes as input a list of fields and warheads, and generates a dict of data payloads (dicts) of form payloads[warhead]={"field1":warhead, "field2":warhead ...} to be posted 
     """
     payloads={}
     for warhead in warheads:
